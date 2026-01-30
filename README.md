@@ -1,2 +1,135 @@
-# Leveraging-Machine-Learning-in-Distributed-Systems
-Built a distributed kNN system using Python and the Ray framework to scale machine learning workloads. Parallelized computation across 10+ workers, reducing execution time by ~40% and improving throughput through optimized task scheduling and efficient resource utilization.
+# Leveraging Machine Learning in Distributed Systems  
+## Distributed k-Nearest Neighbors (kNN) using Ray Framework
+
+## 📌 Overview
+
+Traditional machine learning algorithms often face scalability challenges when applied to large datasets. The **k-Nearest Neighbors (kNN)** algorithm, while simple and effective, becomes computationally expensive due to its distance-based calculations and high memory usage.
+
+This project implements a **distributed version of the kNN algorithm using the Ray framework**, enabling parallel execution across multiple workers and significantly improving performance and scalability.
+
+---
+
+## 🎯 Objectives
+
+- Analyze scalability limitations of traditional kNN  
+- Implement parallel processing using Ray  
+- Reduce execution time through distributed computation  
+- Study task scheduling and resource utilization in distributed systems  
+
+---
+
+## 🧠 About k-Nearest Neighbors (kNN)
+
+kNN is a supervised learning algorithm used for classification and regression tasks.
+
+### Working Principle
+1. Compute distance between query point and all training samples  
+2. Select the *k* nearest neighbors  
+3. Predict output using majority voting or averaging  
+
+### Advantages
+- Simple and intuitive  
+- No explicit training phase  
+- Supports multiple distance metrics  
+- Effective for non-linear decision boundaries  
+
+### Challenges
+- High computational cost for large datasets  
+- Memory-intensive (lazy learning)  
+- Poor scalability  
+- Curse of dimensionality  
+
+These challenges make kNN an ideal candidate for distributed optimization.
+
+---
+
+## ⚙️ Why Ray?
+
+**Ray** is an open-source distributed computing framework designed for scaling Python applications.
+
+### Key Features
+- Python-native parallelism  
+- Simple task and actor abstractions  
+- Efficient scheduling and resource management  
+- Seamless scaling from single machine to cluster  
+
+Ray enables developers to build distributed systems without complex infrastructure management.
+
+---
+
+## 🧰 Technology Stack
+
+- **Language:** Python  
+- **Framework:** Ray  
+- **Libraries:** NumPy, Pandas, SciPy, scikit-learn  
+- **Python Version:** 3.10.9  
+
+### System Configuration
+- **CPU:** Intel i5 (4 cores, 8 threads)  
+- **RAM:** 8 GB  
+- **GPU:** NVIDIA GeForce MX250 (4 GB)  
+
+---
+
+## 🧪 Implementation
+
+### Sequential kNN (Without Ray)
+- Distance computation executed sequentially  
+- High execution time for large datasets  
+- Limited CPU utilization  
+
+### Distributed kNN (With Ray)
+- Distance calculations parallelized using Ray tasks  
+- Workload distributed across multiple workers  
+- Improved CPU utilization and throughput  
+
+---
+
+## 📊 Experimental Results
+
+Performance comparison was conducted using:
+
+- Sequential kNN vs Distributed kNN  
+- Values of k = 3 and k = 5  
+
+### Results
+- Parallel execution across **10+ workers**  
+- Approximately **40% reduction in computation time**  
+- Improved system throughput and scalability  
+
+---
+
+## 🚀 Key Highlights
+
+- Implemented distributed kNN using Ray framework  
+- Executed parallel workloads across 10+ workers  
+- Reduced execution time by ~40% compared to sequential approach  
+- Analyzed task scheduling and resource utilization  
+- Improved scalability for large-scale datasets  
+
+---
+
+## 🔮 Future Work
+
+- Deploy Ray clusters in cloud environments  
+- Enable GPU-accelerated distributed kNN  
+- Compare performance with Apache Spark  
+- Apply system to real-world use cases such as:
+  - Recommendation systems  
+  - Image recognition  
+  - Anomaly detection  
+
+---
+
+## ✅ Conclusion
+
+This project demonstrates that **distributed kNN using Ray significantly improves execution efficiency and scalability** while preserving model accuracy. Ray’s distributed architecture provides an effective solution for overcoming the limitations of traditional kNN in large-scale machine learning scenarios.
+
+---
+
+## 📚 References
+
+- Ray Documentation: https://docs.ray.io  
+- Learning Ray — O’Reilly Media  
+- GeeksforGeeks: k-Nearest Neighbors Algorithm  
+
