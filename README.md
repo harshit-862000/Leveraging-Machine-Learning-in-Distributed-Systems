@@ -76,7 +76,25 @@ Ray enables developers to build distributed systems without complex infrastructu
 ### Sequential kNN (Without Ray)
 - Distance computation executed sequentially  
 - High execution time for large datasets  
-- Limited CPU utilization  
+- Limited CPU utilization
+
+- In the sequential approach, all computations are performed on a single process. Distance calculations and predictions occur sequentially, leading to higher execution time for large datasets.
+
+```python
+# Train and time KNN (without Ray)
+def train_and_time_knn(X_train, y_train, X_test, y_test, n_neighbors=3):
+    knn = KNeighborsClassifier(n_neighbors=n_neighbors)
+
+    start_time = time.time()
+    knn.fit(X_train, y_train)        # Train KNN model
+    y_pred = knn.predict(X_test)     # Predict on test data
+    end_time = time.time()
+
+    accuracy = accuracy_score(y_test, y_pred)
+    time_taken = end_time - start_time
+
+    return accuracy, time_taken
+```
 
 ### Distributed kNN (With Ray)
 - Distance calculations parallelized using Ray tasks  
@@ -84,7 +102,45 @@ Ray enables developers to build distributed systems without complex infrastructu
 - Improved CPU utilization and throughput  
 
 ---
+```python
+# Parallel KNN using Ray
+def train_and_time_knn_parallel(
+    X_train, y_train, X_test, y_test,
+    n_neighbors=3, num_actors=5
+):
+    # Split training data across multiple actors
+    X_train_splits = np.array_split(X_train, num_actors)
+    y_train_splits = np.array_split(y_train, num_actors)
 
+    start_time = time.time()
+
+    # Launch parallel computation
+    futures = [
+        knn_worker.remote(
+            X_train_splits[i],
+            y_train_splits[i],
+            X_test,
+            n_neighbors
+        )
+        for i in range(num_actors)
+    ]
+
+    # Collect predictions from all workers
+    all_predictions = ray.get(futures)
+
+    # Combine predictions using majority voting
+    y_pred_combined = mode(
+        all_predictions, axis=0
+    )[0].flatten().astype(int)
+
+    end_time = time.time()
+
+    accuracy = accuracy_score(y_test, y_pred_combined)
+    time_taken = end_time - start_time
+
+    return accuracy, time_taken
+
+```
 ## 📊 Experimental Results
 
 Performance comparison was conducted using:
